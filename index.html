@@ -1,0 +1,3432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Awaz-e-Mohalla - Pakistan's community-powered civic issue reporting platform">
+<title>Awaz-e-Mohalla | Your Voice. Your Neighborhood.</title>
+
+<style>
+/* =========================================================
+   RESET & VARIABLES
+========================================================= */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --green: #087f5b;
+    --green-dark: #075c43;
+    --green-light: #e8f6f0;
+    --red: #e24b4b;
+    --orange: #e7a928;
+    --dark: #13201c;
+    --text: #42534e;
+    --muted: #71807b;
+    --bg: #f8faf9;
+    --white: #ffffff;
+    --border: #dfe8e4;
+    --shadow: 0 12px 35px rgba(19, 32, 28, .08);
+    --radius: 18px;
+    --max: 1180px;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+                 "Segoe UI", sans-serif;
+    background: var(--bg);
+    color: var(--dark);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+button,
+input,
+select,
+textarea {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.container {
+    width: min(var(--max), calc(100% - 40px));
+    margin-inline: auto;
+}
+
+/* =========================================================
+   NAVBAR
+========================================================= */
+.navbar {
+    height: 72px;
+    background: rgba(255,255,255,.94);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.nav-inner {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 800;
+    font-size: 20px;
+    color: var(--green);
+    letter-spacing: -.5px;
+}
+
+.logo-mark {
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    background: var(--green);
+    color: white;
+    display: grid;
+    place-items: center;
+    font-size: 17px;
+    font-weight: 800;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+.nav-links a {
+    font-size: 14px;
+    font-weight: 600;
+    color: #43524e;
+    transition: .2s;
+}
+
+.nav-links a:hover {
+    color: var(--green);
+}
+
+.nav-cta {
+    background: var(--green);
+    color: white !important;
+    padding: 10px 16px;
+    border-radius: 10px;
+}
+
+.menu-btn {
+    display: none;
+    border: 0;
+    background: transparent;
+    font-size: 26px;
+    color: var(--dark);
+}
+
+/* =========================================================
+   HERO
+========================================================= */
+.hero {
+    min-height: 620px;
+    display: flex;
+    align-items: center;
+    padding: 70px 0 75px;
+    background:
+        radial-gradient(circle at 90% 15%, rgba(8,127,91,.08), transparent 28%),
+        linear-gradient(180deg, #fff 0%, #f8fbfa 100%);
+}
+
+.hero-grid {
+    display: grid;
+    grid-template-columns: 1.02fr .98fr;
+    gap: 60px;
+    align-items: center;
+}
+
+.eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--green);
+    font-weight: 800;
+    font-size: 13px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+}
+
+.eyebrow::before {
+    content: "🇵🇰";
+    font-size: 16px;
+}
+
+.hero h1 {
+    font-size: clamp(48px, 5.1vw, 74px);
+    line-height: .98;
+    letter-spacing: -4px;
+    max-width: 650px;
+    font-weight: 850;
+}
+
+.hero h1 span {
+    color: var(--green);
+}
+
+.hero-description {
+    max-width: 610px;
+    margin: 25px 0 28px;
+    font-size: 18px;
+    line-height: 1.65;
+    color: var(--text);
+}
+
+.hero-actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.btn {
+    border: 0;
+    border-radius: 11px;
+    padding: 12px 19px;
+    font-weight: 750;
+    font-size: 14px;
+    transition: .2s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+}
+
+.btn-primary {
+    background: var(--green);
+    color: white;
+    box-shadow: 0 8px 20px rgba(8,127,91,.2);
+}
+
+.btn-primary:hover {
+    background: var(--green-dark);
+}
+
+.btn-secondary {
+    background: white;
+    color: var(--dark);
+    border: 1px solid var(--border);
+}
+
+/* =========================================================
+   HERO VISUAL
+========================================================= */
+.hero-visual {
+    position: relative;
+}
+
+.map-card {
+    height: 390px;
+    border-radius: 30px;
+    background:
+        linear-gradient(rgba(218,235,228,.7), rgba(232,244,239,.75)),
+        repeating-linear-gradient(
+            12deg,
+            transparent 0,
+            transparent 56px,
+            rgba(102,145,130,.14) 57px,
+            rgba(102,145,130,.14) 59px
+        );
+    border: 12px solid white;
+    box-shadow: 0 25px 60px rgba(19,32,28,.12);
+    position: relative;
+    overflow: hidden;
+}
+
+.map-road {
+    position: absolute;
+    height: 34px;
+    background: rgba(255,255,255,.95);
+    transform: rotate(28deg);
+    width: 125%;
+    left: -10%;
+    top: 42%;
+    box-shadow: 0 0 0 2px rgba(210,220,216,.5);
+}
+
+.map-road.two {
+    transform: rotate(-20deg);
+    top: 65%;
+}
+
+.map-road.three {
+    transform: rotate(80deg);
+    width: 100%;
+    left: 30%;
+    top: 15%;
+}
+
+.map-center {
+    position: absolute;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background: rgba(255,255,255,.8);
+    border: 1px solid rgba(255,255,255,.9);
+    left: 50%;
+    top: 51%;
+    transform: translate(-50%,-50%);
+    display: grid;
+    place-items: center;
+    color: var(--green);
+    font-size: 30px;
+}
+
+.pin {
+    position: absolute;
+    width: 45px;
+    height: 45px;
+    border-radius: 50% 50% 50% 0;
+    transform: rotate(-45deg);
+    display: grid;
+    place-items: center;
+    color: white;
+    box-shadow: 0 10px 20px rgba(0,0,0,.12);
+}
+
+.pin::after {
+    content: "•";
+    transform: rotate(45deg);
+    font-size: 24px;
+}
+
+.pin.red {
+    background: var(--red);
+    top: 24%;
+    left: 29%;
+}
+
+.pin.green {
+    background: var(--green);
+    top: 58%;
+    right: 17%;
+}
+
+.pin.orange {
+    background: #f4b63c;
+    bottom: 11%;
+    left: 42%;
+}
+
+.float-card {
+    position: absolute;
+    background: white;
+    border-radius: 15px;
+    box-shadow: var(--shadow);
+    padding: 13px 16px;
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    font-size: 13px;
+    min-width: 210px;
+}
+
+.float-card strong {
+    display: block;
+    font-size: 14px;
+}
+
+.float-card small {
+    color: var(--muted);
+}
+
+.float-card.resolved {
+    top: 20px;
+    right: -15px;
+}
+
+.float-card.priority {
+    bottom: 20px;
+    left: -25px;
+}
+
+.status-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 12px;
+    background: var(--green-light);
+    color: var(--green);
+    display: grid;
+    place-items: center;
+    font-weight: 900;
+}
+
+/* =========================================================
+   TRUST STRIP
+========================================================= */
+.trust-strip {
+    background: var(--green);
+    color: white;
+    padding: 18px 0;
+}
+
+.trust-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+}
+
+.trust-item {
+    text-align: center;
+    font-size: 13px;
+}
+
+.trust-item strong {
+    display: block;
+    font-size: 21px;
+    margin-bottom: 2px;
+}
+
+/* =========================================================
+   GENERAL SECTIONS
+========================================================= */
+section {
+    padding: 80px 0;
+}
+
+.section-heading {
+    max-width: 680px;
+    margin-bottom: 40px;
+}
+
+.section-heading.center {
+    text-align: center;
+    margin-inline: auto;
+}
+
+.section-kicker {
+    color: var(--green);
+    font-weight: 800;
+    font-size: 12px;
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+
+.section-heading h2 {
+    font-size: clamp(32px, 4vw, 46px);
+    line-height: 1.05;
+    letter-spacing: -2px;
+    margin-bottom: 13px;
+}
+
+.section-heading p {
+    color: var(--text);
+    font-size: 16px;
+}
+
+/* =========================================================
+   CATEGORIES
+========================================================= */
+.categories {
+    background: white;
+}
+
+.category-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+}
+
+.category-card {
+    padding: 23px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: white;
+    transition: .2s;
+}
+
+.category-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow);
+    border-color: #bddbd0;
+}
+
+.category-icon {
+    font-size: 28px;
+    margin-bottom: 15px;
+}
+
+.category-card h3 {
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+.category-card p {
+    color: var(--muted);
+    font-size: 13px;
+}
+
+/* =========================================================
+   HOW IT WORKS
+========================================================= */
+.how {
+    background: #f1f7f4;
+}
+
+.steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+}
+
+.step {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 26px;
+    position: relative;
+}
+
+.step-number {
+    font-size: 12px;
+    color: var(--green);
+    font-weight: 900;
+    margin-bottom: 22px;
+}
+
+.step-icon {
+    font-size: 28px;
+    margin-bottom: 12px;
+}
+
+.step h3 {
+    margin-bottom: 7px;
+}
+
+.step p {
+    color: var(--muted);
+    font-size: 14px;
+}
+
+/* =========================================================
+   REPORT FORM
+========================================================= */
+.report-section {
+    background: white;
+}
+
+.form-layout {
+    display: grid;
+    grid-template-columns: 1fr .72fr;
+    gap: 30px;
+    align-items: start;
+}
+
+.form-card,
+.info-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 28px;
+    box-shadow: 0 10px 30px rgba(19,32,28,.05);
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 17px;
+}
+
+.form-group {
+    margin-bottom: 17px;
+}
+
+.form-group.full {
+    grid-column: 1 / -1;
+}
+
+label {
+    display: block;
+    font-weight: 700;
+    font-size: 13px;
+    margin-bottom: 7px;
+}
+
+input,
+select,
+textarea {
+    width: 100%;
+    border: 1px solid #d4dfdb;
+    border-radius: 10px;
+    padding: 12px 13px;
+    background: #fbfdfc;
+    color: var(--dark);
+    outline: none;
+    transition: .2s;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: var(--green);
+    box-shadow: 0 0 0 3px rgba(8,127,91,.08);
+}
+
+textarea {
+    min-height: 115px;
+    resize: vertical;
+}
+
+.file-box {
+    border: 1.5px dashed #b9ccc5;
+    border-radius: 12px;
+    padding: 18px;
+    text-align: center;
+    background: #f8fbfa;
+}
+
+.file-box input {
+    border: 0;
+    background: transparent;
+}
+
+.preview {
+    display: none;
+    margin-top: 12px;
+    max-height: 180px;
+    margin-inline: auto;
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+.location-row {
+    display: flex;
+    gap: 8px;
+}
+
+.location-row .btn {
+    white-space: nowrap;
+}
+
+.info-card {
+    background: #f0f7f4;
+    box-shadow: none;
+}
+
+.info-card h3 {
+    margin-bottom: 15px;
+}
+
+.info-list {
+    list-style: none;
+}
+
+.info-list li {
+    display: flex;
+    gap: 10px;
+    margin: 13px 0;
+    font-size: 14px;
+    color: var(--text);
+}
+
+/* =========================================================
+   REPORTS
+========================================================= */
+.reports-section {
+    background: var(--bg);
+}
+
+.toolbar {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 25px;
+}
+
+.search-box {
+    flex: 1;
+    min-width: 220px;
+}
+
+.report-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+}
+
+.report-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 17px;
+    overflow: hidden;
+    transition: .2s;
+}
+
+.report-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow);
+}
+
+.report-image {
+    height: 145px;
+    background: linear-gradient(135deg,#dcece5,#f4f8f6);
+    display: grid;
+    place-items: center;
+    font-size: 42px;
+}
+
+.report-content {
+    padding: 18px;
+}
+
+.report-meta {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+    align-items: center;
+    margin-bottom: 9px;
+}
+
+.badge {
+    display: inline-flex;
+    align-items: center;
+    border-radius: 999px;
+    padding: 4px 8px;
+    font-size: 10px;
+    font-weight: 800;
+}
+
+.badge.high {
+    background: #fde8e8;
+    color: #c83737;
+}
+
+.badge.medium {
+    background: #fff4dc;
+    color: #a87300;
+}
+
+.badge.low {
+    background: #e7f7ef;
+    color: #08734f;
+}
+
+.badge.status {
+    background: #edf2f0;
+    color: #53625e;
+}
+
+.report-card h3 {
+    font-size: 17px;
+    margin-bottom: 5px;
+}
+
+.report-location,
+.report-date {
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.report-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 17px;
+    gap: 8px;
+}
+
+.confirm-btn {
+    border: 1px solid #cfe0d9;
+    background: white;
+    color: var(--green);
+    border-radius: 9px;
+    padding: 8px 10px;
+    font-size: 12px;
+    font-weight: 750;
+}
+
+.confirm-btn.confirmed {
+    background: var(--green-light);
+}
+
+/* =========================================================
+   MAP
+========================================================= */
+.map-section {
+    background: white;
+}
+
+.map-demo {
+    height: 430px;
+    border-radius: 22px;
+    overflow: hidden;
+    position: relative;
+    background:
+        repeating-linear-gradient(15deg, #e9f2ee 0 55px, #d7e6df 56px 58px),
+        #e9f2ee;
+    border: 1px solid var(--border);
+}
+
+.map-demo::before,
+.map-demo::after {
+    content: "";
+    position: absolute;
+    background: rgba(255,255,255,.95);
+}
+
+.map-demo::before {
+    width: 120%;
+    height: 45px;
+    transform: rotate(25deg);
+    top: 40%;
+    left: -10%;
+}
+
+.map-demo::after {
+    width: 110%;
+    height: 38px;
+    transform: rotate(-18deg);
+    top: 65%;
+    left: -5%;
+}
+
+.map-label {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: white;
+    padding: 10px 14px;
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+    z-index: 2;
+    font-weight: 750;
+    font-size: 13px;
+}
+
+.map-pin {
+    position: absolute;
+    z-index: 3;
+    width: 42px;
+    height: 42px;
+    border-radius: 50% 50% 50% 0;
+    transform: rotate(-45deg);
+    display: grid;
+    place-items: center;
+    color: white;
+    font-weight: 900;
+}
+
+.map-pin span {
+    transform: rotate(45deg);
+}
+
+.map-pin.p1 {
+    background: var(--red);
+    left: 25%;
+    top: 30%;
+}
+
+.map-pin.p2 {
+    background: var(--green);
+    left: 63%;
+    top: 52%;
+}
+
+.map-pin.p3 {
+    background: var(--orange);
+    left: 47%;
+    top: 72%;
+}
+
+/* =========================================================
+   IMPACT
+========================================================= */
+.impact {
+    background: var(--green-dark);
+    color: white;
+}
+
+.impact .section-kicker {
+    color: #9ce0c7;
+}
+
+.impact .section-heading p {
+    color: #d3e9e1;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    gap: 15px;
+}
+
+.stat {
+    border: 1px solid rgba(255,255,255,.16);
+    background: rgba(255,255,255,.07);
+    padding: 25px;
+    border-radius: 16px;
+}
+
+.stat-number {
+    font-size: 34px;
+    font-weight: 850;
+    margin-bottom: 3px;
+}
+
+.stat-label {
+    color: #c8ded7;
+    font-size: 13px;
+}
+
+/* =========================================================
+   BEFORE AFTER
+========================================================= */
+.before-after {
+    background: white;
+}
+
+.ba-grid {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 18px;
+    align-items: center;
+}
+
+.ba-card {
+    min-height: 210px;
+    border-radius: 18px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.ba-before {
+    background: linear-gradient(145deg,#e8e7e1,#c9cbc7);
+}
+
+.ba-after {
+    background: linear-gradient(145deg,#d9eee4,#9bd0bb);
+}
+
+.ba-label {
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 1px;
+    margin-bottom: 5px;
+}
+
+.ba-arrow {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: var(--green);
+    color: white;
+    display: grid;
+    place-items: center;
+    font-weight: 900;
+}
+
+/* =========================================================
+   ADMIN
+========================================================= */
+.admin {
+    background: #f3f7f5;
+}
+
+.admin-login {
+    max-width: 430px;
+    margin: auto;
+}
+
+.admin-dashboard {
+    display: none;
+}
+
+.admin-dashboard.active {
+    display: block;
+}
+
+.admin-stats {
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    gap: 15px;
+    margin-bottom: 22px;
+}
+
+.admin-stat {
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    border: 1px solid var(--border);
+}
+
+.admin-stat strong {
+    display: block;
+    font-size: 27px;
+}
+
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.admin-table th,
+.admin-table td {
+    text-align: left;
+    padding: 13px 14px;
+    border-bottom: 1px solid #edf1ef;
+    font-size: 12px;
+}
+
+.admin-table th {
+    background: #f6f9f8;
+    font-size: 11px;
+    text-transform: uppercase;
+    color: var(--muted);
+}
+
+.status-select {
+    padding: 7px 8px;
+    font-size: 11px;
+    width: auto;
+}
+
+/* =========================================================
+   MODAL
+========================================================= */
+.modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(10,20,17,.48);
+    backdrop-filter: blur(5px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    z-index: 2000;
+}
+
+.modal.active {
+    display: flex;
+}
+
+.modal-box {
+    background: white;
+    width: min(620px,100%);
+    max-height: 90vh;
+    overflow-y: auto;
+    border-radius: 20px;
+    padding: 28px;
+    box-shadow: 0 25px 80px rgba(0,0,0,.2);
+}
+
+.modal-head {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.close-btn {
+    border: 0;
+    background: #f0f3f2;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    font-size: 18px;
+}
+
+/* =========================================================
+   TOAST
+========================================================= */
+.toast {
+    position: fixed;
+    right: 22px;
+    bottom: 22px;
+    background: #17231f;
+    color: white;
+    padding: 13px 17px;
+    border-radius: 11px;
+    font-size: 13px;
+    box-shadow: 0 15px 35px rgba(0,0,0,.2);
+    transform: translateY(120px);
+    opacity: 0;
+    transition: .3s;
+    z-index: 3000;
+    max-width: 340px;
+}
+
+.toast.show {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+/* =========================================================
+   FOOTER
+========================================================= */
+footer {
+    background: #101c18;
+    color: white;
+    padding: 45px 0 25px;
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr;
+    gap: 35px;
+}
+
+footer p,
+footer a {
+    color: #a9bdb6;
+    font-size: 13px;
+}
+
+footer h4 {
+    margin-bottom: 12px;
+}
+
+.footer-links {
+    display: grid;
+    gap: 7px;
+}
+
+.footer-bottom {
+    border-top: 1px solid rgba(255,255,255,.1);
+    margin-top: 30px;
+    padding-top: 18px;
+    text-align: center;
+    color: #849a92;
+    font-size: 12px;
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+/* Large laptops */
+@media (max-width: 1200px) {
+    :root {
+        --max: 1080px;
+    }
+
+    .hero-grid {
+        gap: 40px;
+    }
+
+    .hero h1 {
+        font-size: clamp(46px, 5.2vw, 65px);
+    }
+
+    .map-card {
+        height: 360px;
+    }
+}
+
+/* Tablets */
+@media (max-width: 900px) {
+    .nav-links {
+        position: absolute;
+        top: 72px;
+        left: 0;
+        right: 0;
+        background: white;
+        border-bottom: 1px solid var(--border);
+        padding: 15px 20px 20px;
+        display: none;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 4px;
+    }
+
+    .nav-links.active {
+        display: flex;
+    }
+
+    .nav-links a {
+        padding: 11px;
+    }
+
+    .menu-btn {
+        display: block;
+    }
+
+    .hero {
+        padding: 55px 0 60px;
+    }
+
+    .hero-grid,
+    .form-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .hero-content {
+        text-align: center;
+    }
+
+    .hero h1,
+    .hero-description {
+        margin-inline: auto;
+    }
+
+    .hero-actions {
+        justify-content: center;
+    }
+
+    .hero-visual {
+        max-width: 650px;
+        width: 100%;
+        margin-inline: auto;
+    }
+
+    .category-grid {
+        grid-template-columns: repeat(2,1fr);
+    }
+
+    .steps {
+        grid-template-columns: repeat(2,1fr);
+    }
+
+    .report-grid {
+        grid-template-columns: repeat(2,1fr);
+    }
+
+    .stats-grid,
+    .admin-stats {
+        grid-template-columns: repeat(2,1fr);
+    }
+
+    .trust-grid {
+        grid-template-columns: repeat(2,1fr);
+    }
+
+    .footer-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+    .container {
+        width: min(100% - 28px, var(--max));
+    }
+
+    .navbar {
+        height: 64px;
+    }
+
+    .nav-links {
+        top: 64px;
+    }
+
+    .logo {
+        font-size: 17px;
+    }
+
+    .logo-mark {
+        width: 30px;
+        height: 30px;
+    }
+
+    .hero {
+        min-height: auto;
+        padding: 45px 0 50px;
+    }
+
+    .hero-grid {
+        gap: 35px;
+    }
+
+    .eyebrow {
+        font-size: 11px;
+        margin-bottom: 15px;
+    }
+
+    .hero h1 {
+        font-size: clamp(40px, 13vw, 54px);
+        letter-spacing: -2.5px;
+        line-height: 1;
+    }
+
+    .hero-description {
+        font-size: 15px;
+        margin: 19px auto 23px;
+    }
+
+    .hero-actions {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .hero-actions .btn {
+        width: 100%;
+    }
+
+    .map-card {
+        height: 280px;
+        border-width: 7px;
+        border-radius: 22px;
+    }
+
+    .float-card {
+        min-width: 165px;
+        padding: 9px 11px;
+        font-size: 11px;
+    }
+
+    .float-card strong {
+        font-size: 11px;
+    }
+
+    .float-card small {
+        font-size: 10px;
+    }
+
+    .float-card.resolved {
+        top: 10px;
+        right: -5px;
+    }
+
+    .float-card.priority {
+        left: -5px;
+        bottom: 10px;
+    }
+
+    .status-icon {
+        width: 30px;
+        height: 30px;
+    }
+
+    section {
+        padding: 55px 0;
+    }
+
+    .section-heading {
+        margin-bottom: 27px;
+    }
+
+    .section-heading h2 {
+        font-size: 32px;
+        letter-spacing: -1px;
+    }
+
+    .category-grid,
+    .steps,
+    .report-grid,
+    .stats-grid,
+    .admin-stats {
+        grid-template-columns: 1fr;
+    }
+
+    .trust-grid {
+        grid-template-columns: repeat(2,1fr);
+    }
+
+    .trust-item strong {
+        font-size: 18px;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+
+    .form-group.full {
+        grid-column: auto;
+    }
+
+    .form-card,
+    .info-card {
+        padding: 20px;
+    }
+
+    .location-row {
+        flex-direction: column;
+    }
+
+    .location-row .btn {
+        width: 100%;
+    }
+
+    .toolbar {
+        flex-direction: column;
+    }
+
+    .search-box {
+        width: 100%;
+    }
+
+    .map-demo {
+        height: 310px;
+    }
+
+    .ba-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .ba-arrow {
+        transform: rotate(90deg);
+        margin: auto;
+    }
+
+    .admin-table-wrap {
+        overflow-x: auto;
+        border-radius: 15px;
+    }
+
+    .admin-table {
+        min-width: 650px;
+    }
+
+    .footer-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .modal-box {
+        padding: 20px;
+    }
+}
+
+/* Very small phones */
+@media (max-width: 360px) {
+    .hero h1 {
+        font-size: 38px;
+    }
+
+    .float-card {
+        transform: scale(.88);
+        transform-origin: bottom left;
+    }
+
+    .float-card.resolved {
+        transform-origin: top right;
+    }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        transition: none !important;
+        animation: none !important;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- =====================================================
+     NAVIGATION
+====================================================== -->
+<header class="navbar">
+    <div class="container nav-inner">
+
+        <a href="#home" class="logo">
+            <span class="logo-mark">A</span>
+            Awaz-e-Mohalla
+        </a>
+
+        <button class="menu-btn" id="menuBtn" aria-label="Open navigation">
+            ☰
+        </button>
+
+        <nav class="nav-links" id="navLinks">
+            <a href="#home">Home</a>
+            <a href="#report">Report</a>
+            <a href="#community">Community</a>
+            <a href="#map">Map</a>
+            <a href="#impact">Impact</a>
+            <a href="#admin">Admin</a>
+            <a href="#report" class="nav-cta">Report Issue</a>
+        </nav>
+
+    </div>
+</header>
+
+
+<!-- =====================================================
+     HERO
+====================================================== -->
+<main>
+
+<section class="hero" id="home">
+    <div class="container hero-grid">
+
+        <div class="hero-content">
+
+            <div class="eyebrow">
+                Built for Pakistan
+            </div>
+
+            <h1>
+                Your neighborhood.
+                <span>Your voice.</span>
+                Your report.
+            </h1>
+
+            <p class="hero-description">
+                Turn everyday problems into community action.
+                Report potholes, garbage, broken streetlights,
+                water leaks and other local issues — then track
+                what happens next.
+            </p>
+
+            <div class="hero-actions">
+                <a href="#report" class="btn btn-primary">
+                    Report an Issue →
+                </a>
+
+                <a href="#community" class="btn btn-secondary">
+                    Explore Reports
+                </a>
+            </div>
+
+        </div>
+
+
+        <div class="hero-visual">
+
+            <div class="map-card">
+
+                <div class="map-road"></div>
+                <div class="map-road two"></div>
+                <div class="map-road three"></div>
+
+                <div class="map-center">
+                    ◎
+                </div>
+
+                <div class="pin red"></div>
+                <div class="pin green"></div>
+                <div class="pin orange"></div>
+
+                <div class="float-card resolved">
+                    <div class="status-icon">✓</div>
+                    <div>
+                        <strong>Issue Resolved</strong>
+                        <small>Streetlight · Hyderabad</small>
+                    </div>
+                </div>
+
+                <div class="float-card priority">
+                    <div class="status-icon" style="background:#fff2d8;color:#b67b00;">
+                        !
+                    </div>
+                    <div>
+                        <strong>High Priority</strong>
+                        <small>Open manhole · Jamshoro</small>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+
+<!-- =====================================================
+     TRUST STRIP
+====================================================== -->
+<div class="trust-strip">
+    <div class="container trust-grid">
+
+        <div class="trust-item">
+            <strong id="heroReports">1,247+</strong>
+            Issues Reported
+        </div>
+
+        <div class="trust-item">
+            <strong id="heroResolved">863+</strong>
+            Issues Resolved
+        </div>
+
+        <div class="trust-item">
+            <strong>3,842+</strong>
+            Community Confirmations
+        </div>
+
+        <div class="trust-item">
+            <strong>10+</strong>
+            Pakistani Cities
+        </div>
+
+    </div>
+</div>
+
+
+<!-- =====================================================
+     CATEGORIES
+====================================================== -->
+<section class="categories">
+
+    <div class="container">
+
+        <div class="section-heading center">
+            <div class="section-kicker">What can you report?</div>
+            <h2>Small problems. Real community impact.</h2>
+            <p>
+                Help your neighborhood become safer, cleaner and better
+                by reporting problems that matter.
+            </p>
+        </div>
+
+        <div class="category-grid">
+
+            <div class="category-card">
+                <div class="category-icon">🗑️</div>
+                <h3>Garbage & Waste</h3>
+                <p>Overflowing bins and waste collection issues.</p>
+            </div>
+
+            <div class="category-card">
+                <div class="category-icon">🛣️</div>
+                <h3>Roads & Potholes</h3>
+                <p>Damaged roads, potholes and unsafe surfaces.</p>
+            </div>
+
+            <div class="category-card">
+                <div class="category-icon">💡</div>
+                <h3>Streetlights</h3>
+                <p>Broken or missing lights in public areas.</p>
+            </div>
+
+            <div class="category-card">
+                <div class="category-icon">🚰</div>
+                <h3>Water Leakage</h3>
+                <p>Leaks, broken pipes and water wastage.</p>
+            </div>
+
+            <div class="category-card">
+                <div class="category-icon">🚽</div>
+                <h3>Drainage</h3>
+                <p>Blocked drains and sanitation problems.</p>
+            </div>
+
+            <div class="category-card">
+                <div class="category-icon">⚡</div>
+                <h3>Civic Infrastructure</h3>
+                <p>Public infrastructure and utility issues.</p>
+            </div>
+
+            <div class="category-card">
+                <div class="category-icon">🏗️</div>
+                <h3>Public Facilities</h3>
+                <p>Problems affecting shared community spaces.</p>
+            </div>
+
+            <div class="category-card">
+                <div class="category-icon">📍</div>
+                <h3>Other Issues</h3>
+                <p>Anything else affecting your neighborhood.</p>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     HOW IT WORKS
+====================================================== -->
+<section class="how" id="how">
+
+    <div class="container">
+
+        <div class="section-heading center">
+            <div class="section-kicker">Simple process</div>
+            <h2>From voice to visible action.</h2>
+            <p>
+                A simple four-step loop that turns local problems
+                into community-supported action.
+            </p>
+        </div>
+
+        <div class="steps">
+
+            <div class="step">
+                <div class="step-number">01</div>
+                <div class="step-icon">📸</div>
+                <h3>Report</h3>
+                <p>
+                    Submit an issue with a description,
+                    photo and location.
+                </p>
+            </div>
+
+            <div class="step">
+                <div class="step-number">02</div>
+                <div class="step-icon">👥</div>
+                <h3>Verify</h3>
+                <p>
+                    Community members confirm genuine
+                    issues in their area.
+                </p>
+            </div>
+
+            <div class="step">
+                <div class="step-number">03</div>
+                <div class="step-icon">🔥</div>
+                <h3>Prioritize</h3>
+                <p>
+                    Community support helps highlight
+                    problems that affect more people.
+                </p>
+            </div>
+
+            <div class="step">
+                <div class="step-number">04</div>
+                <div class="step-icon">✅</div>
+                <h3>Resolve</h3>
+                <p>
+                    Track progress until the issue
+                    is resolved.
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     REPORT FORM
+====================================================== -->
+<section class="report-section" id="report">
+
+    <div class="container">
+
+        <div class="section-heading">
+            <div class="section-kicker">Make your voice count</div>
+            <h2>Report a neighborhood issue.</h2>
+            <p>
+                Give your community enough information to understand
+                the problem and help prioritize it.
+            </p>
+        </div>
+
+        <div class="form-layout">
+
+            <form class="form-card" id="reportForm">
+
+                <div class="form-grid">
+
+                    <div class="form-group">
+                        <label for="title">Issue Title *</label>
+                        <input
+                            id="title"
+                            required
+                            maxlength="100"
+                            placeholder="e.g. Broken streetlight"
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="category">Category *</label>
+                        <select id="category" required>
+                            <option value="">Select category</option>
+                            <option>Garbage & Waste</option>
+                            <option>Roads & Potholes</option>
+                            <option>Streetlights</option>
+                            <option>Water Leakage</option>
+                            <option>Drainage & Sanitation</option>
+                            <option>Electricity/Civic Infrastructure</option>
+                            <option>Public Infrastructure</option>
+                            <option>Other</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="city">City *</label>
+                        <select id="city" required>
+                            <option value="">Select city</option>
+                            <option>Karachi</option>
+                            <option>Lahore</option>
+                            <option>Islamabad</option>
+                            <option>Rawalpindi</option>
+                            <option>Hyderabad</option>
+                            <option>Jamshoro</option>
+                            <option>Multan</option>
+                            <option>Peshawar</option>
+                            <option>Quetta</option>
+                            <option>Faisalabad</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="location">Area / Location *</label>
+                        <input
+                            id="location"
+                            required
+                            maxlength="120"
+                            placeholder="e.g. Main Bazaar"
+                        >
+                    </div>
+
+                    <div class="form-group full">
+                        <label for="description">Description *</label>
+                        <textarea
+                            id="description"
+                            required
+                            maxlength="500"
+                            placeholder="Describe what is happening and how it affects the community..."
+                        ></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="severity">Severity *</label>
+                        <select id="severity" required>
+                            <option value="">Select severity</option>
+                            <option value="1">Low</option>
+                            <option value="2">Medium</option>
+                            <option value="3">High</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Location coordinates</label>
+
+                        <div class="location-row">
+                            <input
+                                id="coordinates"
+                                readonly
+                                placeholder="Not detected"
+                            >
+
+                            <button
+                                type="button"
+                                class="btn btn-secondary"
+                                id="locationBtn"
+                            >
+                                📍 Use Location
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="form-group full">
+
+                        <label for="image">
+                            Evidence image
+                        </label>
+
+                        <div class="file-box">
+
+                            <input
+                                id="image"
+                                type="file"
+                                accept="image/jpeg,image/png,image/webp"
+                            >
+
+                            <img
+                                id="preview"
+                                class="preview"
+                                alt="Selected evidence preview"
+                            >
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <button class="btn btn-primary" type="submit">
+                    Submit Report →
+                </button>
+
+            </form>
+
+
+            <aside class="info-card">
+
+                <h3>Why report?</h3>
+
+                <ul class="info-list">
+
+                    <li>
+                        <span>📸</span>
+                        <span>Add evidence so others can understand the issue.</span>
+                    </li>
+
+                    <li>
+                        <span>📍</span>
+                        <span>Location helps identify where action is needed.</span>
+                    </li>
+
+                    <li>
+                        <span>👥</span>
+                        <span>Community confirmations help genuine issues stand out.</span>
+                    </li>
+
+                    <li>
+                        <span>📊</span>
+                        <span>Track the issue from reporting to resolution.</span>
+                    </li>
+
+                    <li>
+                        <span>🇵🇰</span>
+                        <span>Built around everyday civic problems in Pakistan.</span>
+                    </li>
+
+                </ul>
+
+            </aside>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     COMMUNITY REPORTS
+====================================================== -->
+<section class="reports-section" id="community">
+
+    <div class="container">
+
+        <div class="section-heading">
+            <div class="section-kicker">Community voice</div>
+            <h2>See what your community is reporting.</h2>
+            <p>
+                Confirm issues that affect your neighborhood and help
+                important problems get noticed.
+            </p>
+        </div>
+
+        <div class="toolbar">
+
+            <input
+                class="search-box"
+                id="search"
+                placeholder="Search reports..."
+            >
+
+            <select id="filterCategory">
+                <option value="">All categories</option>
+                <option>Garbage & Waste</option>
+                <option>Roads & Potholes</option>
+                <option>Streetlights</option>
+                <option>Water Leakage</option>
+                <option>Drainage & Sanitation</option>
+                <option>Electricity/Civic Infrastructure</option>
+            </select>
+
+            <select id="filterStatus">
+                <option value="">All status</option>
+                <option>Pending</option>
+                <option>Verified</option>
+                <option>Under Review</option>
+                <option>In Progress</option>
+                <option>Resolved</option>
+            </select>
+
+            <button class="btn btn-secondary" id="resetFilters">
+                Reset
+            </button>
+
+        </div>
+
+        <div class="report-grid" id="reportGrid"></div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     MAP
+====================================================== -->
+<section class="map-section" id="map">
+
+    <div class="container">
+
+        <div class="section-heading">
+            <div class="section-kicker">Community map</div>
+            <h2>Where are issues happening?</h2>
+            <p>
+                Explore a visual view of reported civic issues
+                across Pakistani cities.
+            </p>
+        </div>
+
+        <div class="map-demo">
+
+            <div class="map-label">
+                📍 Community Issue Map
+            </div>
+
+            <div class="map-pin p1">
+                <span>!</span>
+            </div>
+
+            <div class="map-pin p2">
+                <span>✓</span>
+            </div>
+
+            <div class="map-pin p3">
+                <span>!</span>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     IMPACT
+====================================================== -->
+<section class="impact" id="impact">
+
+    <div class="container">
+
+        <div class="section-heading center">
+
+            <div class="section-kicker">
+                Our impact
+            </div>
+
+            <h2>
+                From community voice to visible change.
+            </h2>
+
+            <p>
+                Every report is a signal. Every confirmation
+                strengthens that signal. Every resolution creates
+                visible impact.
+            </p>
+
+        </div>
+
+        <div class="stats-grid">
+
+            <div class="stat">
+                <div class="stat-number" id="statReports">
+                    1,247
+                </div>
+                <div class="stat-label">
+                    Issues Reported
+                </div>
+            </div>
+
+            <div class="stat">
+                <div class="stat-number" id="statResolved">
+                    863
+                </div>
+                <div class="stat-label">
+                    Issues Resolved
+                </div>
+            </div>
+
+            <div class="stat">
+                <div class="stat-number" id="statConfirmations">
+                    3,842
+                </div>
+                <div class="stat-label">
+                    Community Confirmations
+                </div>
+            </div>
+
+            <div class="stat">
+                <div class="stat-number" id="statRate">
+                    69%
+                </div>
+                <div class="stat-label">
+                    Resolution Rate
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     BEFORE / AFTER
+====================================================== -->
+<section class="before-after">
+
+    <div class="container">
+
+        <div class="section-heading center">
+            <div class="section-kicker">Visible impact</div>
+            <h2>Problems should have an ending.</h2>
+            <p>
+                Awaz-e-Mohalla is designed around transparent progress,
+                not complaints disappearing into a form.
+            </p>
+        </div>
+
+        <div class="ba-grid">
+
+            <div class="ba-card ba-before">
+                <div class="ba-label">BEFORE</div>
+                <h3>Broken streetlight reported</h3>
+                <p>Dark road affecting residents at night.</p>
+            </div>
+
+            <div class="ba-arrow">→</div>
+
+            <div class="ba-card ba-after">
+                <div class="ba-label">AFTER</div>
+                <h3>Issue resolved</h3>
+                <p>Community can see that action was completed.</p>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     ADMIN
+====================================================== -->
+<section class="admin" id="admin">
+
+    <div class="container">
+
+        <div class="section-heading center">
+            <div class="section-kicker">Demo administration</div>
+            <h2>Track and manage reported issues.</h2>
+            <p>
+                Demo dashboard for reviewing reports and updating
+                their progress.
+            </p>
+        </div>
+
+        <div class="admin-login form-card" id="adminLogin">
+
+            <div class="form-group">
+                <label for="adminEmail">Demo Email</label>
+                <input
+                    id="adminEmail"
+                    value="admin@awazemohalla.pk"
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="adminPassword">Demo Password</label>
+                <input
+                    id="adminPassword"
+                    type="password"
+                    value="admin123"
+                >
+            </div>
+
+            <button class="btn btn-primary" id="adminLoginBtn">
+                Open Admin Dashboard
+            </button>
+
+            <p style="margin-top:12px;color:#71807b;font-size:12px;">
+                Demo credentials only — not production authentication.
+            </p>
+
+        </div>
+
+
+        <div class="admin-dashboard" id="adminDashboard">
+
+            <div class="admin-stats">
+
+                <div class="admin-stat">
+                    <span>Total Reports</span>
+                    <strong id="adminTotal">0</strong>
+                </div>
+
+                <div class="admin-stat">
+                    <span>Pending</span>
+                    <strong id="adminPending">0</strong>
+                </div>
+
+                <div class="admin-stat">
+                    <span>In Progress</span>
+                    <strong id="adminProgress">0</strong>
+                </div>
+
+                <div class="admin-stat">
+                    <span>Resolved</span>
+                    <strong id="adminResolved">0</strong>
+                </div>
+
+            </div>
+
+            <div class="admin-table-wrap">
+
+                <table class="admin-table">
+
+                    <thead>
+                        <tr>
+                            <th>Ticket</th>
+                            <th>Issue</th>
+                            <th>City</th>
+                            <th>Priority</th>
+                            <th>Status</th>
+                            <th>Confirmations</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="adminTableBody"></tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+</main>
+
+
+<!-- =====================================================
+     FOOTER
+====================================================== -->
+<footer>
+
+    <div class="container">
+
+        <div class="footer-grid">
+
+            <div>
+                <div class="logo" style="color:white;margin-bottom:12px;">
+                    <span class="logo-mark">A</span>
+                    Awaz-e-Mohalla
+                </div>
+
+                <p>
+                    Turning community voices into visible action.
+                    A civic-tech MVP built for Pakistan.
+                </p>
+            </div>
+
+            <div>
+                <h4>Explore</h4>
+
+                <div class="footer-links">
+                    <a href="#home">Home</a>
+                    <a href="#report">Report Issue</a>
+                    <a href="#community">Community</a>
+                    <a href="#map">Map</a>
+                </div>
+            </div>
+
+            <div>
+                <h4>Platform</h4>
+
+                <div class="footer-links">
+                    <a href="#how">How It Works</a>
+                    <a href="#impact">Impact</a>
+                    <a href="#admin">Admin</a>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+            Built for Pakistan 🇵🇰 · Awaz-e-Mohalla · Hackathon MVP
+        </div>
+
+    </div>
+
+</footer>
+
+
+<!-- =====================================================
+     REPORT MODAL
+====================================================== -->
+<div class="modal" id="reportModal">
+
+    <div class="modal-box">
+
+        <div class="modal-head">
+
+            <div>
+                <div class="section-kicker">
+                    Report Details
+                </div>
+
+                <h2 id="modalTitle">
+                    Report
+                </h2>
+            </div>
+
+            <button class="close-btn" id="closeModal">
+                ×
+            </button>
+
+        </div>
+
+        <div id="modalContent"></div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     TOAST
+====================================================== -->
+<div class="toast" id="toast"></div>
+
+
+<script>
+/* =========================================================
+   AWAZ-E-MOHALLA APPLICATION
+========================================================= */
+
+const STORAGE_KEY = "awaz_e_mohalla_reports";
+const CONFIRM_KEY = "awaz_e_mohalla_confirmations";
+
+const demoReports = [
+    {
+        id: "AOM-2026-48291",
+        title: "Overflowing garbage near Main Bazaar",
+        category: "Garbage & Waste",
+        city: "Hyderabad",
+        location: "Main Bazaar",
+        description: "Garbage has been accumulating for several days and is affecting nearby residents.",
+        severity: 3,
+        priority: "High",
+        status: "Verified",
+        confirmations: 24,
+        verified: true,
+        createdAt: "2026-08-12"
+    },
+    {
+        id: "AOM-2026-37182",
+        title: "Broken streetlight on University Road",
+        category: "Streetlights",
+        city: "Jamshoro",
+        location: "University Road",
+        description: "A streetlight has not been working for several nights.",
+        severity: 2,
+        priority: "Medium",
+        status: "In Progress",
+        confirmations: 15,
+        verified: true,
+        createdAt: "2026-08-11"
+    },
+    {
+        id: "AOM-2026-29471",
+        title: "Water leakage near Model Colony",
+        category: "Water Leakage",
+        city: "Karachi",
+        location: "Model Colony",
+        description: "Water is leaking continuously near a residential street.",
+        severity: 3,
+        priority: "High",
+        status: "Pending",
+        confirmations: 9,
+        verified: false,
+        createdAt: "2026-08-10"
+    },
+    {
+        id: "AOM-2026-18342",
+        title: "Damaged road near bus stop",
+        category: "Roads & Potholes",
+        city: "Lahore",
+        location: "Main Bus Stop",
+        description: "A large pothole is making the road difficult for traffic.",
+        severity: 2,
+        priority: "Medium",
+        status: "Resolved",
+        confirmations: 31,
+        verified: true,
+        createdAt: "2026-08-08"
+    },
+    {
+        id: "AOM-2026-10327",
+        title: "Blocked drainage in residential area",
+        category: "Drainage & Sanitation",
+        city: "Islamabad",
+        location: "Sector G",
+        description: "Drainage water is collecting near homes.",
+        severity: 3,
+        priority: "High",
+        status: "Under Review",
+        confirmations: 18,
+        verified: true,
+        createdAt: "2026-08-07"
+    },
+    {
+        id: "AOM-2026-08219",
+        title: "Large pothole near school road",
+        category: "Roads & Potholes",
+        city: "Jamshoro",
+        location: "School Road",
+        description: "A pothole is creating a safety concern for students and vehicles.",
+        severity: 2,
+        priority: "Medium",
+        status: "Pending",
+        confirmations: 6,
+        verified: false,
+        createdAt: "2026-08-06"
+    }
+];
+
+
+/* =========================================================
+   SAFE STORAGE
+========================================================= */
+
+function safeGet(key, fallback) {
+    try {
+        const value = localStorage.getItem(key);
+
+        if (!value) return fallback;
+
+        return JSON.parse(value);
+    } catch (error) {
+        console.warn("Storage read failed:", error);
+        return fallback;
+    }
+}
+
+function safeSet(key, value) {
+    try {
+        localStorage.setItem(key, JSON.stringify(value));
+        return true;
+    } catch (error) {
+        console.warn("Storage write failed:", error);
+        showToast("Your browser storage is full. Some data may not persist.");
+        return false;
+    }
+}
+
+
+function getReports() {
+    const reports = safeGet(STORAGE_KEY, null);
+
+    if (!Array.isArray(reports)) {
+        safeSet(STORAGE_KEY, demoReports);
+        return [...demoReports];
+    }
+
+    return reports;
+}
+
+
+function saveReports(reports) {
+    safeSet(STORAGE_KEY, reports);
+}
+
+
+/* =========================================================
+   INITIALIZATION
+========================================================= */
+
+let reports = getReports();
+let confirmedReports = safeGet(CONFIRM_KEY, []);
+
+if (!Array.isArray(confirmedReports)) {
+    confirmedReports = [];
+}
+
+const reportGrid = document.getElementById("reportGrid");
+
+
+/* =========================================================
+   UTILITIES
+========================================================= */
+
+function escapeHTML(value) {
+    return String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
+
+
+function showToast(message) {
+    const toast = document.getElementById("toast");
+
+    toast.textContent = message;
+    toast.classList.add("show");
+
+    clearTimeout(window.toastTimer);
+
+    window.toastTimer = setTimeout(() => {
+        toast.classList.remove("show");
+    }, 3000);
+}
+
+
+function generateTicket() {
+    const year = new Date().getFullYear();
+    const number = Math.floor(10000 + Math.random() * 89999);
+
+    return `AOM-${year}-${number}`;
+}
+
+
+function calculatePriority(report) {
+    let score = Number(report.severity || 1);
+
+    score += Math.min(
+        3,
+        Math.floor(Number(report.confirmations || 0) / 10)
+    );
+
+    if (score >= 5) return "High";
+    if (score >= 3) return "Medium";
+
+    return "Low";
+}
+
+
+function priorityClass(priority) {
+    return String(priority).toLowerCase();
+}
+
+
+function imageEmoji(category) {
+
+    if (category.includes("Garbage")) return "🗑️";
+    if (category.includes("Road")) return "🛣️";
+    if (category.includes("Street")) return "💡";
+    if (category.includes("Water")) return "🚰";
+    if (category.includes("Drainage")) return "🚽";
+    if (category.includes("Electric")) return "⚡";
+
+    return "📍";
+}
+
+
+/* =========================================================
+   RENDER REPORTS
+========================================================= */
+
+function renderReports() {
+
+    const search = document
+        .getElementById("search")
+        .value
+        .trim()
+        .toLowerCase();
+
+    const category = document.getElementById("filterCategory").value;
+    const status = document.getElementById("filterStatus").value;
+
+    const filtered = reports.filter(report => {
+
+        const searchable =
+            `${report.title} ${report.description} ${report.city} ${report.location} ${report.category}`
+                .toLowerCase();
+
+        const matchesSearch =
+            !search || searchable.includes(search);
+
+        const matchesCategory =
+            !category || report.category === category;
+
+        const matchesStatus =
+            !status || report.status === status;
+
+        return matchesSearch && matchesCategory && matchesStatus;
+    });
+
+
+    if (!filtered.length) {
+
+        reportGrid.innerHTML = `
+            <div style="
+                grid-column:1/-1;
+                background:white;
+                border:1px solid var(--border);
+                padding:45px 20px;
+                border-radius:18px;
+                text-align:center;
+            ">
+                <div style="font-size:40px;margin-bottom:10px;">🔎</div>
+                <h3>No reports found</h3>
+                <p style="color:var(--muted);margin-top:5px;">
+                    Try changing your search or filters.
+                </p>
+            </div>
+        `;
+
+        return;
+    }
+
+
+    reportGrid.innerHTML = filtered.map(report => {
+
+        const alreadyConfirmed =
+            confirmedReports.includes(report.id);
+
+        const priority = calculatePriority(report);
+
+        report.priority = priority;
+
+        return `
+            <article class="report-card">
+
+                <div class="report-image">
+                    ${imageEmoji(escapeHTML(report.category))}
+                </div>
+
+                <div class="report-content">
+
+                    <div class="report-meta">
+
+                        <span class="badge ${priorityClass(priority)}">
+                            ${priority} Priority
+                        </span>
+
+                        <span class="badge status">
+                            ${escapeHTML(report.status)}
+                        </span>
+
+                    </div>
+
+                    <h3>
+                        ${escapeHTML(report.title)}
+                    </h3>
+
+                    <div class="report-location">
+                        📍 ${escapeHTML(report.location)},
+                        ${escapeHTML(report.city)}
+                    </div>
+
+                    <div class="report-date">
+                        ${escapeHTML(report.createdAt)}
+                    </div>
+
+                    ${
+                        report.verified
+                        ? `
+                            <div style="
+                                margin-top:10px;
+                                color:var(--green);
+                                font-size:11px;
+                                font-weight:800;
+                            ">
+                                ✓ Community Verified
+                            </div>
+                        `
+                        : ""
+                    }
+
+                    <div class="report-bottom">
+
+                        <button
+                            class="confirm-btn ${alreadyConfirmed ? "confirmed" : ""}"
+                            onclick="confirmIssue('${report.id}')"
+                        >
+                            ${alreadyConfirmed ? "✓ Confirmed" : "✓ Confirm Issue"}
+                        </button>
+
+                        <span style="
+                            color:var(--muted);
+                            font-size:11px;
+                            font-weight:700;
+                        ">
+                            ${report.confirmations} confirmations
+                        </span>
+
+                    </div>
+
+                    <button
+                        class="btn btn-secondary"
+                        style="width:100%;margin-top:10px;"
+                        onclick="openReport('${report.id}')"
+                    >
+                        View Details
+                    </button>
+
+                </div>
+
+            </article>
+        `;
+
+    }).join("");
+
+    saveReports(reports);
+}
+
+
+/* =========================================================
+   CONFIRM ISSUE
+========================================================= */
+
+function confirmIssue(id) {
+
+    if (confirmedReports.includes(id)) {
+
+        showToast("You have already confirmed this issue.");
+
+        return;
+    }
+
+    const report = reports.find(item => item.id === id);
+
+    if (!report) return;
+
+    report.confirmations =
+        Number(report.confirmations || 0) + 1;
+
+    if (report.confirmations >= 10) {
+        report.verified = true;
+    }
+
+    report.priority = calculatePriority(report);
+
+    confirmedReports.push(id);
+
+    safeSet(CONFIRM_KEY, confirmedReports);
+    saveReports(reports);
+
+    renderReports();
+    updateStatistics();
+    renderAdmin();
+
+    showToast(
+        "Thank you! Your confirmation helps prioritize genuine community issues."
+    );
+}
+
+
+/* =========================================================
+   REPORT DETAILS
+========================================================= */
+
+function openReport(id) {
+
+    const report = reports.find(item => item.id === id);
+
+    if (!report) return;
+
+    document.getElementById("modalTitle").textContent =
+        report.title;
+
+    const statuses = [
+        "Pending",
+        "Verified",
+        "Under Review",
+        "In Progress",
+        "Resolved"
+    ];
+
+    const currentIndex =
+        statuses.indexOf(report.status);
+
+    const timeline = statuses.map((status, index) => {
+
+        const complete = index <= currentIndex;
+
+        return `
+            <div style="
+                display:flex;
+                gap:12px;
+                align-items:flex-start;
+                margin:14px 0;
+            ">
+                <div style="
+                    width:25px;
+                    height:25px;
+                    flex:none;
+                    border-radius:50%;
+                    background:${complete ? "var(--green-light)" : "#f0f2f1"};
+                    color:${complete ? "var(--green)" : "#87928e"};
+                    display:grid;
+                    place-items:center;
+                    font-size:11px;
+                    font-weight:900;
+                ">
+                    ${complete ? "✓" : "○"}
+                </div>
+
+                <div>
+                    <strong style="font-size:13px;">
+                        ${status}
+                    </strong>
+                </div>
+            </div>
+        `;
+
+    }).join("");
+
+
+    document.getElementById("modalContent").innerHTML = `
+
+        <div style="
+            display:grid;
+            grid-template-columns:repeat(2,1fr);
+            gap:10px;
+            margin-bottom:20px;
+        ">
+
+            <div style="
+                background:#f5f8f7;
+                padding:13px;
+                border-radius:10px;
+            ">
+                <small style="color:var(--muted);">
+                    Ticket ID
+                </small>
+
+                <strong style="display:block;font-size:13px;">
+                    ${escapeHTML(report.id)}
+                </strong>
+            </div>
+
+            <div style="
+                background:#f5f8f7;
+                padding:13px;
+                border-radius:10px;
+            ">
+                <small style="color:var(--muted);">
+                    Priority
+                </small>
+
+                <strong style="display:block;font-size:13px;">
+                    ${escapeHTML(report.priority)}
+                </strong>
+            </div>
+
+        </div>
+
+        <p style="color:var(--text);margin-bottom:14px;">
+            ${escapeHTML(report.description)}
+        </p>
+
+        <p style="font-size:13px;color:var(--muted);">
+            📍 ${escapeHTML(report.location)},
+            ${escapeHTML(report.city)}
+        </p>
+
+        <p style="font-size:13px;color:var(--muted);margin-top:5px;">
+            👥 ${report.confirmations} community confirmations
+        </p>
+
+        ${
+            report.verified
+            ? `
+                <div style="
+                    color:var(--green);
+                    font-weight:800;
+                    font-size:13px;
+                    margin-top:12px;
+                ">
+                    ✓ Community Verified
+                </div>
+            `
+            : ""
+        }
+
+        <div style="
+            margin-top:25px;
+            border-top:1px solid var(--border);
+            padding-top:18px;
+        ">
+            <strong>Progress</strong>
+
+            <div style="margin-top:12px;">
+                ${timeline}
+            </div>
+        </div>
+
+    `;
+
+    document
+        .getElementById("reportModal")
+        .classList.add("active");
+}
+
+
+/* =========================================================
+   CLOSE MODAL
+========================================================= */
+
+document
+    .getElementById("closeModal")
+    .addEventListener("click", () => {
+
+        document
+            .getElementById("reportModal")
+            .classList.remove("active");
+
+    });
+
+
+document
+    .getElementById("reportModal")
+    .addEventListener("click", event => {
+
+        if (event.target.id === "reportModal") {
+
+            document
+                .getElementById("reportModal")
+                .classList.remove("active");
+
+        }
+
+    });
+
+
+/* =========================================================
+   REPORT FORM
+========================================================= */
+
+document
+    .getElementById("reportForm")
+    .addEventListener("submit", function(event) {
+
+        event.preventDefault();
+
+        const title =
+            document.getElementById("title").value.trim();
+
+        const category =
+            document.getElementById("category").value;
+
+        const city =
+            document.getElementById("city").value;
+
+        const location =
+            document.getElementById("location").value.trim();
+
+        const description =
+            document.getElementById("description").value.trim();
+
+        const severity =
+            Number(document.getElementById("severity").value);
+
+        if (
+            !title ||
+            !category ||
+            !city ||
+            !location ||
+            !description ||
+            !severity
+        ) {
+
+            showToast("Please complete all required fields.");
+
+            return;
+        }
+
+
+        const ticket = generateTicket();
+
+        const newReport = {
+
+            id: ticket,
+
+            title,
+
+            category,
+
+            city,
+
+            location,
+
+            description,
+
+            severity,
+
+            priority: "Medium",
+
+            status: "Pending",
+
+            confirmations: 0,
+
+            verified: false,
+
+            createdAt:
+                new Date()
+                    .toISOString()
+                    .split("T")[0]
+
+        };
+
+
+        newReport.priority =
+            calculatePriority(newReport);
+
+
+        reports.unshift(newReport);
+
+        saveReports(reports);
+
+        this.reset();
+
+        document.getElementById("preview").style.display = "none";
+        document.getElementById("coordinates").value = "";
+
+        renderReports();
+        updateStatistics();
+        renderAdmin();
+
+        showToast(
+            `Report submitted successfully — ${ticket}`
+        );
+
+        setTimeout(() => {
+
+            openReport(ticket);
+
+        }, 500);
+
+    });
+
+
+/* =========================================================
+   IMAGE PREVIEW
+========================================================= */
+
+document
+    .getElementById("image")
+    .addEventListener("change", function() {
+
+        const file = this.files[0];
+
+        if (!file) return;
+
+        const allowed = [
+            "image/jpeg",
+            "image/png",
+            "image/webp"
+        ];
+
+        if (!allowed.includes(file.type)) {
+
+            showToast("Please select a JPG, PNG or WEBP image.");
+
+            this.value = "";
+
+            return;
+        }
+
+        if (file.size > 5 * 1024 * 1024) {
+
+            showToast("Image must be smaller than 5MB.");
+
+            this.value = "";
+
+            return;
+        }
+
+        const reader = new FileReader();
+
+        reader.onload = event => {
+
+            const preview =
+                document.getElementById("preview");
+
+            preview.src = event.target.result;
+            preview.style.display = "block";
+
+        };
+
+        reader.readAsDataURL(file);
+
+    });
+
+
+/* =========================================================
+   GEOLOCATION
+========================================================= */
+
+document
+    .getElementById("locationBtn")
+    .addEventListener("click", function() {
+
+        const input =
+            document.getElementById("coordinates");
+
+        if (!navigator.geolocation) {
+
+            showToast(
+                "Location is not supported by this browser."
+            );
+
+            return;
+        }
+
+        input.value = "Detecting...";
+
+        navigator.geolocation.getCurrentPosition(
+
+            position => {
+
+                const lat =
+                    position.coords.latitude.toFixed(5);
+
+                const lng =
+                    position.coords.longitude.toFixed(5);
+
+                input.value =
+                    `${lat}, ${lng}`;
+
+                showToast(
+                    "Your location was detected."
+                );
+
+            },
+
+            () => {
+
+                input.value = "";
+
+                showToast(
+                    "Location access was unavailable. You can enter your location manually."
+                );
+
+            },
+
+            {
+                enableHighAccuracy: true,
+                timeout: 8000,
+                maximumAge: 30000
+            }
+
+        );
+
+    });
+
+
+/* =========================================================
+   SEARCH / FILTER
+========================================================= */
+
+document
+    .getElementById("search")
+    .addEventListener("input", renderReports);
+
+document
+    .getElementById("filterCategory")
+    .addEventListener("change", renderReports);
+
+document
+    .getElementById("filterStatus")
+    .addEventListener("change", renderReports);
+
+
+document
+    .getElementById("resetFilters")
+    .addEventListener("click", () => {
+
+        document.getElementById("search").value = "";
+        document.getElementById("filterCategory").value = "";
+        document.getElementById("filterStatus").value = "";
+
+        renderReports();
+
+    });
+
+
+/* =========================================================
+   ADMIN LOGIN
+========================================================= */
+
+document
+    .getElementById("adminLoginBtn")
+    .addEventListener("click", () => {
+
+        const email =
+            document.getElementById("adminEmail").value.trim();
+
+        const password =
+            document.getElementById("adminPassword").value;
+
+        if (
+            email === "admin@awazemohalla.pk" &&
+            password === "admin123"
+        ) {
+
+            document
+                .getElementById("adminLogin")
+                .style.display = "none";
+
+            document
+                .getElementById("adminDashboard")
+                .classList.add("active");
+
+            renderAdmin();
+
+            showToast(
+                "Demo admin dashboard opened."
+            );
+
+        } else {
+
+            showToast(
+                "Use the demo credentials shown above."
+            );
+
+        }
+
+    });
+
+
+/* =========================================================
+   ADMIN DASHBOARD
+========================================================= */
+
+function renderAdmin() {
+
+    const total = reports.length;
+
+    const pending =
+        reports.filter(r => r.status === "Pending").length;
+
+    const progress =
+        reports.filter(r => r.status === "In Progress").length;
+
+    const resolved =
+        reports.filter(r => r.status === "Resolved").length;
+
+    document.getElementById("adminTotal").textContent = total;
+    document.getElementById("adminPending").textContent = pending;
+    document.getElementById("adminProgress").textContent = progress;
+    document.getElementById("adminResolved").textContent = resolved;
+
+
+    document.getElementById("adminTableBody").innerHTML =
+        reports.map(report => {
+
+            return `
+                <tr>
+
+                    <td>
+                        ${escapeHTML(report.id)}
+                    </td>
+
+                    <td>
+                        ${escapeHTML(report.title)}
+                    </td>
+
+                    <td>
+                        ${escapeHTML(report.city)}
+                    </td>
+
+                    <td>
+                        <span class="badge ${priorityClass(report.priority)}">
+                            ${escapeHTML(report.priority)}
+                        </span>
+                    </td>
+
+                    <td>
+
+                        <select
+                            class="status-select"
+                            onchange="changeStatus('${report.id}', this.value)"
+                        >
+
+                            ${[
+                                "Pending",
+                                "Verified",
+                                "Under Review",
+                                "In Progress",
+                                "Resolved"
+                            ].map(status => `
+                                <option
+                                    ${report.status === status ? "selected" : ""}
+                                >
+                                    ${status}
+                                </option>
+                            `).join("")}
+
+                        </select>
+
+                    </td>
+
+                    <td>
+                        ${report.confirmations}
+                    </td>
+
+                </tr>
+            `;
+
+        }).join("");
+
+}
+
+
+/* =========================================================
+   CHANGE STATUS
+========================================================= */
+
+function changeStatus(id, status) {
+
+    const report =
+        reports.find(item => item.id === id);
+
+    if (!report) return;
+
+    report.status = status;
+
+    if (
+        status === "Verified" ||
+        status === "In Progress" ||
+        status === "Resolved"
+    ) {
+        report.verified = true;
+    }
+
+    saveReports(reports);
+
+    renderReports();
+    renderAdmin();
+    updateStatistics();
+
+    showToast(
+        `Report status updated to ${status}.`
+    );
+}
+
+
+/* =========================================================
+   STATISTICS
+========================================================= */
+
+function updateStatistics() {
+
+    const total =
+        reports.length;
+
+    const resolved =
+        reports.filter(
+            r => r.status === "Resolved"
+        ).length;
+
+    const confirmations =
+        reports.reduce(
+            (sum, r) =>
+                sum + Number(r.confirmations || 0),
+            0
+        );
+
+    const rate =
+        total
+        ? Math.round((resolved / total) * 100)
+        : 0;
+
+
+    document.getElementById("statReports")
+        .textContent = total;
+
+    document.getElementById("statResolved")
+        .textContent = resolved;
+
+    document.getElementById("statConfirmations")
+        .textContent = confirmations;
+
+    document.getElementById("statRate")
+        .textContent = rate + "%";
+
+    document.getElementById("heroReports")
+        .textContent = total + "+";
+
+    document.getElementById("heroResolved")
+        .textContent = resolved + "+";
+}
+
+
+/* =========================================================
+   MOBILE MENU
+========================================================= */
+
+document
+    .getElementById("menuBtn")
+    .addEventListener("click", () => {
+
+        document
+            .getElementById("navLinks")
+            .classList.toggle("active");
+
+    });
+
+
+document
+    .querySelectorAll("#navLinks a")
+    .forEach(link => {
+
+        link.addEventListener("click", () => {
+
+            document
+                .getElementById("navLinks")
+                .classList.remove("active");
+
+        });
+
+    });
+
+
+/* =========================================================
+   KEYBOARD ACCESSIBILITY
+========================================================= */
+
+document.addEventListener("keydown", event => {
+
+    if (event.key === "Escape") {
+
+        document
+            .getElementById("reportModal")
+            .classList.remove("active");
+
+    }
+
+});
+
+
+/* =========================================================
+   INITIAL RENDER
+========================================================= */
+
+renderReports();
+updateStatistics();
+renderAdmin();
+
+</script>
+
+</body>
+</html>
